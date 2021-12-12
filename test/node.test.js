@@ -50,21 +50,17 @@ describe('Node', () => {
       const data = {
         children: [
           {
-            data: {
-              name: 'child 1'
-            }
+            name: 'child 1'
           },
           {
-            data: {
-              name: 'child 2'
-            }
+            name: 'child 2'
           }
         ]
       }
       const node = new Node(data)
       const children = node.children
       expect(children[0]).toBeInstanceOf(Node)
-      expect(children[0].name).toBe(children[0].data.name)
+      expect(children[0].name).toBe(children[0].name)
     })
 
     it('should ignore parent data of given children', () => {
@@ -82,6 +78,31 @@ describe('Node', () => {
       const children = node.children
       expect(children[0]).toBeInstanceOf(Node)
       expect(children[0].parent).toBe(node)
+    })
+  })
+
+  describe('#_generation', () => {
+    it('should return the generation number for the node', () => {
+      const data = {
+        name: 'root',
+        children: [
+          {
+            name: 'gen1-node0',
+            children: [
+              {
+                name: 'gen2-node0'
+              },
+              {
+                name: 'gen2-node1'
+              }
+            ]
+          }
+        ]
+      }
+      const root = new Node(data)
+      expect(root._generation).toBe(0)
+      expect(root.children[0]._generation).toBe(1)
+      expect(root.children[0].children[1]._generation).toBe(2)
     })
   })
 })
