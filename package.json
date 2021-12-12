@@ -4,7 +4,8 @@
   "description": "A tree of nodes representing a hierarchy of data components",
   "main": "index.js",
   "scripts": {
-    "lint": "prettier src --check test",
+    "lint": "prettier --check src test",
+    "format": "prettier --write src test",
     "test": "jest",
     "test:watch": "jest --watch"
   },

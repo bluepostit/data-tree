@@ -95,7 +95,7 @@ describe('Node', () => {
   })
 
   describe('#_index', () => {
-    it('should return the node\'s index on its parent node', () => {
+    it("should return the node's index on its parent node", () => {
       const data = require('./fixtures/3-generations.json')
       const root = new Node(data)
       expect(root._index).toBeNull()
@@ -103,7 +103,7 @@ describe('Node', () => {
       expect(root.children[0].children[1]._index).toBe(1)
     })
 
-    it('should ignore data with key \'_index\'', () => {
+    it("should ignore data with key '_index'", () => {
       const node = new Node({ _index: 9, index: 9 })
       expect(node._index).toBeNull()
     })

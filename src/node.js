@@ -1,7 +1,4 @@
-const IGNORED_KEYS = [
-  '_parent',
-  '_index'
-]
+const IGNORED_KEYS = ['_parent', '_index']
 
 const buildData = (data, node) => {
   Object.getOwnPropertyNames(data).forEach(key => {
