@@ -1,0 +1,16 @@
+{
+  "name": "root",
+  "children": [
+    {
+      "name": "gen1-node0",
+      "children": [
+        {
+          "name": "gen2-node0"
+        },
+        {
+          "name": "gen2-node1"
+        }
+      ]
+    }
+  ]
+}

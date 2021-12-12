@@ -86,22 +86,7 @@ describe('Node', () => {
 
   describe('#_generation', () => {
     it('should return the generation number for the node', () => {
-      const data = {
-        name: 'root',
-        children: [
-          {
-            name: 'gen1-node0',
-            children: [
-              {
-                name: 'gen2-node0'
-              },
-              {
-                name: 'gen2-node1'
-              }
-            ]
-          }
-        ]
-      }
+      const data = require('./fixtures/3-generations.json')
       const root = new Node(data)
       expect(root._generation).toBe(0)
       expect(root.children[0]._generation).toBe(1)
@@ -111,22 +96,7 @@ describe('Node', () => {
 
   describe('#_index', () => {
     it('should return the node\'s index on its parent node', () => {
-      const data = {
-        name: 'root',
-        children: [
-          {
-            name: 'gen1-node0',
-            children: [
-              {
-                name: 'gen2-node0'
-              },
-              {
-                name: 'gen2-node1'
-              }
-            ]
-          }
-        ]
-      }
+      const data = require('./fixtures/3-generations.json')
       const root = new Node(data)
       expect(root._index).toBeNull()
       expect(root.children[0]._index).toBe(0)
@@ -136,6 +106,16 @@ describe('Node', () => {
     it('should ignore data with key \'_index\'', () => {
       const node = new Node({ _index: 9, index: 9 })
       expect(node._index).toBeNull()
+    })
+  })
+
+  describe('#_id', () => {
+    it('should return an id consisting of its generation and index', () => {
+      const data = require('./fixtures/3-generations.json')
+      const root = new Node(data)
+      expect(root._id).toBe('0')
+      expect(root.children[0]._id).toBe('1.0')
+      expect(root.children[0].children[1]._id).toBe('2.1')
     })
   })
 })

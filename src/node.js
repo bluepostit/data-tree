@@ -43,6 +43,14 @@ class Node {
   get parentNode() {
     return this._parent
   }
+
+  get _id() {
+    let id = this._generation.toString()
+    if (this._index !== null) {
+      id = `${id}.${this._index}`
+    }
+    return id
+  }
 }
 
 export default Node
