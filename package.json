@@ -1,0 +1,22 @@
+{
+  "name": "data-tree",
+  "version": "1.0.0",
+  "description": "A tree of nodes representing a hierarchy of data components",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "keywords": [
+    "data",
+    "node"
+  ],
+  "author": "bluepostit",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/preset-env": "^7.16.4",
+    "core-js": "^3.19.3",
+    "jest": "^27.4.4",
+    "prettier": "^2.5.1"
+  }
+}
