@@ -135,4 +135,43 @@ describe('Node', () => {
       expect(root.children[0].children[1]._absolute('name')).toBe('root/gen1-node0/gen2-node1')
     })
   })
+
+  describe('#findChildNode', () => {
+    it('should return null if not found', () => {
+      let node = new Node({})
+      let child = node.findChildNode('id', '4')
+      expect(child).toBeNull()
+
+      const data = require('./fixtures/3-generations.json')
+      node = new Node(data)
+      child = node.findChildNode('name', 'unicorn')
+      expect(child).toBeNull()
+    })
+
+    it('should return the child node matching the given key and value', () => {
+      const data = require('./fixtures/3-generations.json')
+      const node = new Node(data)
+      const childName = 'gen1-node0'
+      const child = node.findChildNode('name', childName)
+      expect(child).toBeInstanceOf(Node)
+      expect(child.name).toBe(childName)
+    })
+
+    it('should recurse if required', () => {
+      const data = require('./fixtures/3-generations.json')
+      const node = new Node(data)
+      const childNames = ['gen1-node0', 'gen2-node0']
+      const child = node.findChildNode('name', childNames)
+      expect(child).toBeInstanceOf(Node)
+      expect(child.name).toBe('gen2-node0')
+    })
+
+    it('should return null when not found in recursing', () => {
+      const data = require('./fixtures/3-generations.json')
+      const node = new Node(data)
+      const childNames = ['gen1-node0', 'gen2-node999']
+      const child = node.findChildNode('name', childNames)
+      expect(child).toBeNull()
+    })
+  })
 })

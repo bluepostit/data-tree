@@ -60,6 +60,22 @@ class Node {
     }
     return `${absolute}${nodeProperty}`
   }
+
+  findChildNode(key, values) {
+    if (!Array.isArray(values)) {
+      values = [values]
+    }
+    if (values.length > 1) {
+      const shorterValues = values.slice(0, values.length - 1)
+      const node = this.findChildNode(key, shorterValues)
+      return node.findChildNode(key, values.slice(1))
+    } else if (values.length === 1) {
+      const found = this.children.find((node) => {
+        return node[key] === values[0]
+      })
+      return found || null
+    }
+  }
 }
 
 export default Node
