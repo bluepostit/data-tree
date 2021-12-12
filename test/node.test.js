@@ -5,7 +5,8 @@ describe('Node', () => {
     it('should create a Node with the given parent', () => {
       const data = {}
       const parent = {
-        title: 'test title'
+        title: 'test title',
+        children: []
       }
       const node = new Node(data, parent)
       expect(node.parent).toBe(parent)
@@ -17,7 +18,8 @@ describe('Node', () => {
         path: 'test-path'
       }
       const parent = {
-        title: 'test title'
+        title: 'test title',
+        children: []
       }
       const node = new Node(data, parent)
       expect(node.unicorns).toBe(data.unicorns)
@@ -30,7 +32,8 @@ describe('Node', () => {
         _parent: 'test-parent'
       }
       const parent = {
-        title: 'test title'
+        title: 'test title',
+        children: []
       }
       const node = new Node(data, parent)
       expect(node.parent).toBe(parent)
@@ -103,6 +106,31 @@ describe('Node', () => {
       expect(root._generation).toBe(0)
       expect(root.children[0]._generation).toBe(1)
       expect(root.children[0].children[1]._generation).toBe(2)
+    })
+  })
+
+  describe('#_index', () => {
+    it('should return the node\'s index on its parent node', () => {
+      const data = {
+        name: 'root',
+        children: [
+          {
+            name: 'gen1-node0',
+            children: [
+              {
+                name: 'gen2-node0'
+              },
+              {
+                name: 'gen2-node1'
+              }
+            ]
+          }
+        ]
+      }
+      const root = new Node(data)
+      expect(root._index).toBeNull()
+      expect(root.children[0]._index).toBe(0)
+      expect(root.children[0].children[1]._index).toBe(1)
     })
   })
 })
