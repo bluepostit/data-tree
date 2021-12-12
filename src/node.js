@@ -1,8 +1,14 @@
+const IGNORED_KEYS = [
+  '_parent',
+  '_index'
+]
+
 const buildData = (data, node) => {
   Object.getOwnPropertyNames(data).forEach(key => {
-    if (key === 'parent' || key === '_parent') {
+    if (IGNORED_KEYS.includes(key)) {
       return
-    } else if (key === 'children') {
+    }
+    if (key === 'children') {
       data[key].forEach((data, index) => {
         const childNode = new Node(data, node, index)
         node.children.push(childNode)
@@ -34,7 +40,7 @@ class Node {
     buildData(data, this)
   }
 
-  get parent() {
+  get parentNode() {
     return this._parent
   }
 }

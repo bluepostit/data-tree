@@ -9,7 +9,7 @@ describe('Node', () => {
         children: []
       }
       const node = new Node(data, parent)
-      expect(node.parent).toBe(parent)
+      expect(node.parentNode).toBe(parent)
     })
 
     it('should create a Node with a getter for each data key', () => {
@@ -36,7 +36,7 @@ describe('Node', () => {
         children: []
       }
       const node = new Node(data, parent)
-      expect(node.parent).toBe(parent)
+      expect(node.parentNode).toBe(parent)
     })
 
     it('should create a node with empty parent when given no parent', () => {
@@ -46,7 +46,7 @@ describe('Node', () => {
       }
 
       const node = new Node(data)
-      expect(node.parent).toBeNull()
+      expect(node.parentNode).toBeNull()
     })
 
     it('should create Node elements of given children in data', () => {
@@ -80,7 +80,7 @@ describe('Node', () => {
       const node = new Node(data)
       const children = node.children
       expect(children[0]).toBeInstanceOf(Node)
-      expect(children[0].parent).toBe(node)
+      expect(children[0].parentNode).toBe(node)
     })
   })
 
@@ -131,6 +131,11 @@ describe('Node', () => {
       expect(root._index).toBeNull()
       expect(root.children[0]._index).toBe(0)
       expect(root.children[0].children[1]._index).toBe(1)
+    })
+
+    it('should ignore data with key \'_index\'', () => {
+      const node = new Node({ _index: 9, index: 9 })
+      expect(node._index).toBeNull()
     })
   })
 })
