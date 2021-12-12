@@ -21,6 +21,22 @@ const buildData = (data, node) => {
   })
 }
 
+const buildAbsoluteMethods = (node) => {
+  Object.defineProperty(node, '_absolute', {
+    value: (key, separator = '/') => {
+      let absolute = ''
+      if (node._parent && node._parent._absolute) {
+        absolute = (node._parent._absolute(key, separator) || '') + separator
+      }
+      const nodeProperty = node[key]
+      if (nodeProperty === null) {
+        return null
+      }
+      return `${absolute}${nodeProperty}`
+    }
+  })
+}
+
 class Node {
   constructor(data, parent = null, index = null) {
     this._parent = parent
@@ -35,6 +51,7 @@ class Node {
     }
 
     buildData(data, this)
+    buildAbsoluteMethods(this)
   }
 
   get parentNode() {

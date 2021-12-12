@@ -118,4 +118,21 @@ describe('Node', () => {
       expect(root.children[0].children[1]._id).toBe('2.1')
     })
   })
+
+  describe("#_absolute", () => {
+    it("returns the root's value for the property", () => {
+      const node = new Node({ name: 'root' })
+      expect(node._absolute('_id')).toBe(node._id)
+      expect(node._absolute('name')).toBe(node.name)
+    })
+    it('returns the absolute id starting at the root', () => {
+      const data = require('./fixtures/3-generations.json')
+      const root = new Node(data)
+      let absoluteIndex = root.children[0]._absolute('_index')
+      expect(absoluteIndex).toBe('/0')
+      expect(root.children[0].children[1]._absolute('_index')).toBe('/0/1')
+      expect(root.children[0].children[1]._absolute('_id')).toBe('0/1.0/2.1')
+      expect(root.children[0].children[1]._absolute('name')).toBe('root/gen1-node0/gen2-node1')
+    })
+  })
 })
