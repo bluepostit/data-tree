@@ -2,10 +2,17 @@
   "name": "data-tree",
   "version": "1.0.0",
   "description": "A tree of nodes representing a hierarchy of data components",
-  "main": "index.js",
+  "source": "src/node.js",
+  "files": [
+    "dist/*"
+  ],
+  "main": "./dist/node.js",
   "scripts": {
+    "dev": "microbundle --watch",
+    "build": "microbundle",
     "lint": "prettier --check src test",
     "format": "prettier --write src test",
+    "prepare": "microbundle",
     "test": "jest",
     "test:watch": "jest --watch"
   },
@@ -19,6 +26,7 @@
     "@babel/preset-env": "^7.16.4",
     "core-js": "^3.19.3",
     "jest": "^27.4.4",
+    "microbundle": "^0.14.2",
     "prettier": "^2.5.1"
   }
 }
