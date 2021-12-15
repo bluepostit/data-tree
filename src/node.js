@@ -1,4 +1,4 @@
-const IGNORED_KEYS = ['_parent', '_index']
+const IGNORED_KEYS = ['_parent', '_index', '_id']
 
 const buildData = (data, node) => {
   Object.getOwnPropertyNames(data).forEach(key => {
@@ -55,7 +55,7 @@ class Node {
       absolute = (this._parent._absolute(key, separator) || '') + separator
     }
     const nodeProperty = this[key]
-    if (nodeProperty === null) {
+    if (nodeProperty === null || nodeProperty === undefined) {
       return null
     }
     return `${absolute}${nodeProperty}`
@@ -66,15 +66,45 @@ class Node {
       values = [values]
     }
     if (values.length > 1) {
-      const shorterValues = values.slice(0, values.length - 1)
-      const node = this.findChildNode(key, shorterValues)
-      return node.findChildNode(key, values.slice(1))
+      const firstValues = values.slice(0, values.length - 1)
+      const lastValue = values[values.length - 1]
+      const node = this.findChildNode(key, firstValues)
+      return node.findChildNode(key, lastValue)
     } else if (values.length === 1) {
       const found = this.children.find((node) => {
         return node[key] === values[0]
       })
       return found || null
     }
+  }
+
+  toJSON() {
+    const data = {}
+    Object.getOwnPropertyNames(this).forEach(key => {
+      if (IGNORED_KEYS.includes(key)) {
+        return
+      }
+      data[key] = this[key]
+    })
+    delete data._data
+
+    if (this.path) {
+      data.absolutePath = this._absolute('path')
+    }
+    if (this._parent) {
+      data.parent = {
+        _id: this._parent._id,
+        name: this._parent.name || null
+      }
+    } else {
+      delete data.parent
+    }
+    if (this.children.length > 0) {
+      data.children = this.children
+    } else {
+      delete data.children
+    }
+    return data
   }
 }
 
