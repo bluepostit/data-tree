@@ -78,6 +78,19 @@ class Node {
     }
   }
 
+  get extension() {
+    if (!this.path) {
+      return null
+    }
+
+    const regex = /\.(\w+)\s*$/
+    const match = regex.exec(this.path)
+    if (!match || !match[1]) {
+      return null
+    }
+    return match[1]
+  }
+
   toJSON() {
     const data = {}
     Object.getOwnPropertyNames(this).forEach(key => {
@@ -90,6 +103,9 @@ class Node {
 
     if (this.path) {
       data.absolutePath = this._absolute('path')
+      if (this.extension) {
+        data.extension = this.extension
+      }
     }
     if (this._parent) {
       data.parent = {

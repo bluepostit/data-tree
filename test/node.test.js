@@ -84,7 +84,7 @@ describe('Node', () => {
     })
   })
 
-  describe('#_generation', () => {
+  describe('._generation', () => {
     it('should return the generation number for the node', () => {
       const data = require('./fixtures/3-generations.json')
       const root = new Node(data)
@@ -94,7 +94,7 @@ describe('Node', () => {
     })
   })
 
-  describe('#_index', () => {
+  describe('._index', () => {
     it("should return the node's index on its parent node", () => {
       const data = require('./fixtures/3-generations.json')
       const root = new Node(data)
@@ -109,7 +109,7 @@ describe('Node', () => {
     })
   })
 
-  describe('#_id', () => {
+  describe('._id', () => {
     it('should return an id consisting of its generation and index', () => {
       const data = require('./fixtures/3-generations.json')
       const root = new Node(data)
@@ -172,6 +172,48 @@ describe('Node', () => {
       const childNames = ['gen1-node0', 'gen2-node999']
       const child = node.findChildNode('name', childNames)
       expect(child).toBeNull()
+    })
+  })
+
+  describe('.extension', () => {
+    it('should not return an extension if the path has none', () => {
+      const data = [
+        { path: 'test' },
+        { path: 'test.' },
+        { path: 'test. pdf' },
+        { name: 'hello.txt' }
+      ]
+
+      data.forEach((item) => {
+        const node = new Node(item)
+        expect(node.extension).toBeNull()
+      })
+    })
+
+    it('should return the correct path extension', () => {
+      const data = [
+        {
+          path: 'test.a',
+          extension: 'a'
+        },
+        {
+          path: 'a real interesting test.txt',
+          extension: 'txt'
+        },
+        {
+          path: 'test.asdf ',
+          extension: 'asdf'
+        },
+        {
+          path: '789.7',
+          extension: '7'
+        }
+      ]
+
+      data.forEach(item => {
+        const node = new Node({ path: item.path })
+        expect(node.extension).toBe(item.extension)
+      })
     })
   })
 })
