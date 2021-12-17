@@ -18,10 +18,17 @@
   },
   "keywords": [
     "data",
-    "node"
+    "nodes",
+    "tree",
+    "path",
+    "hierarchy"
   ],
   "author": "bluepostit",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bluepostit/data-tree.git"
+  },
   "devDependencies": {
     "@babel/preset-env": "^7.16.4",
     "core-js": "^3.19.3",

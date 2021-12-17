@@ -119,7 +119,7 @@ describe('Node', () => {
     })
   })
 
-  describe("#_absolute", () => {
+  describe('#_absolute', () => {
     it("returns the root's value for the property", () => {
       const node = new Node({ name: 'root' })
       expect(node._absolute('_id')).toBe(node._id)
@@ -177,14 +177,9 @@ describe('Node', () => {
 
   describe('.extension', () => {
     it('should not return an extension if the path has none', () => {
-      const data = [
-        { path: 'test' },
-        { path: 'test.' },
-        { path: 'test. pdf' },
-        { name: 'hello.txt' }
-      ]
+      const data = [{ path: 'test' }, { path: 'test.' }, { path: 'test. pdf' }, { name: 'hello.txt' }]
 
-      data.forEach((item) => {
+      data.forEach(item => {
         const node = new Node(item)
         expect(node.extension).toBeNull()
       })
