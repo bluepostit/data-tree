@@ -71,7 +71,7 @@ class Node {
       const node = this.findChildNode(key, firstValues)
       return node.findChildNode(key, lastValue)
     } else if (values.length === 1) {
-      const found = this.children.find((node) => {
+      const found = this.children.find(node => {
         return node[key] === values[0]
       })
       return found || null
