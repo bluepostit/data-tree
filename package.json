@@ -1,5 +1,5 @@
 {
-  "name": "data-tree",
+  "name": "@bluepostit/data-tree",
   "version": "1.0.0",
   "description": "A tree of nodes representing a hierarchy of data components",
   "source": "src/node.js",
