@@ -101,6 +101,8 @@ class Node {
     })
     delete data._data
 
+    data._index = this._index
+
     if (this.path) {
       data.absolutePath = this._absolute('path')
       if (this.extension) {
@@ -110,7 +112,8 @@ class Node {
     if (this._parent) {
       data.parent = {
         _id: this._parent._id,
-        name: this._parent.name || null
+        name: this._parent.name || null,
+        absolutePath: this._parent._absolute('path')
       }
     } else {
       delete data.parent
